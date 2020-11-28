@@ -1,8 +1,8 @@
-enum Species {
+export enum Species {
   pine = 'pine',
   spruce = 'spruce',
   birch = 'birch',
-  other = 'other'
+  other = 'other',
 }
 
 export interface IForestStand {

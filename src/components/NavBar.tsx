@@ -1,7 +1,9 @@
 import React, { FC, useState } from 'react'
 import styled, { keyframes } from 'styled-components'
 import { ReactComponent as AppLogo } from '../assets/logo.svg'
-import { useHistory, Link } from 'react-router-dom'
+import { useHistory, NavLink as Link } from 'react-router-dom'
+import { useSelector } from 'react-redux'
+import { selectStands } from '../features/forest/forestSlice'
 
 const NavLink = styled(Link)`
   background: white;
@@ -10,6 +12,11 @@ const NavLink = styled(Link)`
   padding: 0.25rem 0.5rem;
   border-radius: 5px;
   cursor: pointer;
+  
+  &.active {
+    background: #70ca70;
+    color: white;
+  }
 `
 
 const Nav = styled.div`
@@ -37,7 +44,7 @@ const logoAnimation = keyframes`
 const Logo = styled.div`
   margin-right: auto;
   background: white;
-  padding: 0.5rem 1rem;
+  padding: 0.2rem 1rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -46,8 +53,8 @@ const Logo = styled.div`
   
   svg {
     fill: forestgreen;
-    width: 3rem;
-    height: 3rem;
+    width: 2.5rem;
+    height: 2.5rem;
     margin-right: 2rem;
     animation-name: ${logoAnimation};
     animation-timing-function: cubic-bezier(0,.24,.07,.99);
@@ -66,6 +73,7 @@ const Logo = styled.div`
 export const NavBar: FC = () => {
   const history = useHistory()
   const [logoKey, setLogoKey] = useState<number>(1)
+  const stands = useSelector(selectStands)
 
   const redirectToHome = () => {
     setLogoKey(logoKey + 1)
@@ -79,21 +87,25 @@ export const NavBar: FC = () => {
           <AppLogo/>
         </div>
         <div className="logo-text">
-          ForestApp
+          Forest App
         </div>
       </Logo>
-      <NavLink to="/">
+      <NavLink to="/" exact>
         Upload
       </NavLink>
-      <NavLink to="/map">
-        Map
-      </NavLink>
-      <NavLink to="/histogram">
-        Histogram
-      </NavLink>
-      <NavLink to="/scatterplot">
-        Scatterplot
-      </NavLink>
+      {!!stands.length && (
+        <>
+          <NavLink to="/map">
+            Map
+          </NavLink>
+          <NavLink to="/histogram">
+            Histogram
+          </NavLink>
+          <NavLink to="/scatterplot">
+            Scatterplot
+          </NavLink>
+        </>
+      )}
     </Nav>
   )
 }
