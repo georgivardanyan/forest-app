@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { createSlice, PayloadAction, createSelector } from '@reduxjs/toolkit'
 import { IForestStand } from './types'
 
 import { RootState } from '../../app/store'
@@ -25,20 +25,26 @@ export const forestSlice = createSlice({
     },
     setSelectedSpecies: (state, action: PayloadAction<string>) => {
       state.selectedSpecies = action.payload
-    }
+    },
   },
 })
 
 export const { setStands, addStand, setSelectedSpecies } = forestSlice.actions
 
 export const selectStands = (state: RootState) => state.forest.stands
-export const selectStandsBySpecies = (state: RootState) => {
-  if (!state.forest.selectedSpecies) {
-    return state.forest.stands
-  } else {
-    return state.forest.stands.filter(o => o.main_species === state.forest.selectedSpecies)
-  }
-}
+
+const selectSpeciesParam = (_: any, species: string) => species
+
+export const selectStandsBySpecies = createSelector(
+  [selectStands, selectSpeciesParam],
+  (stands: IForestStand[], species: string) => species ? stands.filter(o => o.main_species === species) : stands,
+)
+
+export const selectStandsBySpeciesCount = createSelector(
+  selectStandsBySpecies,
+  (stands) => stands.length,
+)
+
 export const selectSelectedSpecies = (state: RootState) => state.forest.selectedSpecies
 
 export default forestSlice.reducer

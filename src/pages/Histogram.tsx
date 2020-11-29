@@ -1,9 +1,13 @@
 import React, { FC, useEffect, useMemo, useRef, useState } from 'react'
 import { Bar } from 'react-chartjs-2'
 import { useSelector } from 'react-redux'
-import { selectStandsBySpecies } from '../features/forest/forestSlice'
+import {
+  selectSelectedSpecies,
+  selectStandsBySpecies,
+} from '../features/forest/forestSlice'
 import { max, round, min, range, throttle } from 'lodash'
 import styled from 'styled-components'
+import { RootState } from '../app/store'
 
 const CanvasContainer = styled.div`
 @media(min-width: 1080px) {
@@ -58,7 +62,10 @@ interface IPreparedData {
 
 export const Histogram: FC = () => {
   const [barKey, setBarKey] = useState<number>(1)
-  const stands = useSelector(selectStandsBySpecies)
+  const selectedSpecies = useSelector(selectSelectedSpecies)
+
+  const stands = useSelector(((state: RootState) => selectStandsBySpecies(state, selectedSpecies)))
+
   const [chartData, setChartData] = useState<IChartData>()
 
   const canvasRef = useRef<HTMLCanvasElement>(null)
