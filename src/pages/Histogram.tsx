@@ -6,54 +6,14 @@ import {
   selectStandsBySpecies,
 } from '../features/forest/forestSlice'
 import { max, round, min, range, throttle } from 'lodash'
-import styled from 'styled-components'
 import { RootState } from '../app/store'
-
-const CanvasContainer = styled.div`
-@media(min-width: 1080px) {
-    max-width: 1080px;
-    margin: 0 auto;
-  }
-`
-
-const options = {
-  scales: {
-    yAxes: [
-      {
-        ticks: {
-          beginAtZero: true,
-        },
-      },
-    ],
-    xAxes: [{
-      scaleLabel: {
-        display: true,
-        labelString: 'relative volume (m3 per hectare)',
-      },
-    }],
-  },
-  legend: {
-    onClick(e: React.MouseEvent) {
-      e.stopPropagation()
-    },
-  },
-}
-
-interface IChartDataset {
-  label: string
-  data: number[]
-  backgroundColor: string[] | CanvasGradient
-  borderWidth: number
-}
-
-interface IVolumeKey {
-  [key: string]: number
-}
-
-interface IChartData {
-  labels: string[]
-  datasets: IChartDataset[]
-}
+import { ChartCanvasContainer } from '../features/forest/ChartCanvasContainer'
+import {
+  IBarChartDataset,
+  IChartData,
+  IVolumeKey,
+  options,
+} from '../features/forest/chartUtils'
 
 interface IPreparedData {
   labels: string[]
@@ -118,7 +78,7 @@ export const Histogram: FC = () => {
 
     const { labels, data } = preparedData
 
-    const dataset: IChartDataset = {
+    const dataset: IBarChartDataset = {
       label: '# of stands',
       data,
       backgroundColor: gradient,
@@ -134,9 +94,9 @@ export const Histogram: FC = () => {
   }, [preparedData, barKey])
 
   return (
-    <CanvasContainer ref={containerRef}>
+    <ChartCanvasContainer ref={containerRef}>
       <canvas ref={canvasRef} style={{ display: 'none' }}/>
       {chartData && <Bar data={chartData} options={options}/>}
-    </CanvasContainer>
+    </ChartCanvasContainer>
   )
 }
