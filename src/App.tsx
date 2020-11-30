@@ -20,11 +20,13 @@ const RouterContainer = styled.div`
   padding: 1rem;
 `
 
+const baseUrl = process.env.PUBLIC_URL || '/'
+
 const App: FC = () => {
   const stands = useSelector(selectStands)
 
   return (
-    <Router>
+    <Router basename={baseUrl}>
       <div>
         <NavBar/>
         <RouterContainer>
