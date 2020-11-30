@@ -1,0 +1,24 @@
+{
+  "files": {
+    "main.css": "/forest-app/static/css/main.bafa10a8.chunk.css",
+    "main.js": "/forest-app/static/js/main.9e5b3b19.chunk.js",
+    "main.js.map": "/forest-app/static/js/main.9e5b3b19.chunk.js.map",
+    "runtime-main.js": "/forest-app/static/js/runtime-main.0f222bfa.js",
+    "runtime-main.js.map": "/forest-app/static/js/runtime-main.0f222bfa.js.map",
+    "static/css/2.fa130c53.chunk.css": "/forest-app/static/css/2.fa130c53.chunk.css",
+    "static/js/2.6a29d928.chunk.js": "/forest-app/static/js/2.6a29d928.chunk.js",
+    "static/js/2.6a29d928.chunk.js.map": "/forest-app/static/js/2.6a29d928.chunk.js.map",
+    "index.html": "/forest-app/index.html",
+    "static/css/2.fa130c53.chunk.css.map": "/forest-app/static/css/2.fa130c53.chunk.css.map",
+    "static/css/main.bafa10a8.chunk.css.map": "/forest-app/static/css/main.bafa10a8.chunk.css.map",
+    "static/js/2.6a29d928.chunk.js.LICENSE.txt": "/forest-app/static/js/2.6a29d928.chunk.js.LICENSE.txt",
+    "static/media/logo.f3014543.svg": "/forest-app/static/media/logo.f3014543.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.0f222bfa.js",
+    "static/css/2.fa130c53.chunk.css",
+    "static/js/2.6a29d928.chunk.js",
+    "static/css/main.bafa10a8.chunk.css",
+    "static/js/main.9e5b3b19.chunk.js"
+  ]
+}
