@@ -3,7 +3,7 @@ import styled, { keyframes } from 'styled-components'
 import { ReactComponent as AppLogo } from '../assets/logo.svg'
 import { useHistory, NavLink as Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
-import { selectStands } from '../features/forest/forestSlice'
+import { selectLoading, selectStands } from '../features/forest/forestSlice'
 
 const NavLink = styled(Link)`
   background: white;
@@ -71,6 +71,8 @@ const Logo = styled.div`
 `
 
 export const NavBar: FC = () => {
+  const loading = useSelector(selectLoading)
+
   const history = useHistory()
   const [logoKey, setLogoKey] = useState<number>(1)
   const stands = useSelector(selectStands)
@@ -93,7 +95,7 @@ export const NavBar: FC = () => {
       <NavLink to="/" exact>
         Upload
       </NavLink>
-      {!!stands.length && (
+      {!!stands.length && !loading && (
         <>
           <NavLink to="/map">
             Map
@@ -103,6 +105,9 @@ export const NavBar: FC = () => {
           </NavLink>
           <NavLink to="/scatterplot">
             Scatterplot
+          </NavLink>
+          <NavLink to="/pie">
+            Pie
           </NavLink>
         </>
       )}

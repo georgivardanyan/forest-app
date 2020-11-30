@@ -1,4 +1,5 @@
 import React from 'react'
+import { Species } from './types'
 
 export const options = {
   scales: {
@@ -27,6 +28,11 @@ export interface IVolumeKey {
   [key: string]: number
 }
 
+export interface ICoordinates {
+  x: number
+  y: number
+}
+
 export interface IBarChartDataset {
   label: string
   data: number[]
@@ -42,14 +48,25 @@ export interface IScatterChartDataset {
   pointHoverRadius: number
 }
 
-type IChartDataset = IBarChartDataset | IScatterChartDataset
+export interface IPieChartDataset {
+  data: number[]
+  backgroundColor: string[] | CanvasGradient
+}
+
+type IChartDataset = IBarChartDataset | IScatterChartDataset | IPieChartDataset
 
 export interface IChartData {
   labels?: string[]
   datasets: IChartDataset[]
 }
 
-export interface ICoordinates {
-  x: number
-  y: number
+type ISpeciesColors = {
+  [key: string]: string
+}
+
+export const speciesColors: ISpeciesColors = {
+  [Species.pine]: '#01796f',
+  [Species.spruce]: '#12552b',
+  [Species.birch]: '#f8dfa1',
+  [Species.other]: '#b5b5aa',
 }

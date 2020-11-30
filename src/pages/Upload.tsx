@@ -3,7 +3,7 @@ import React, { FC } from 'react'
 import { CSVReader } from 'react-papaparse'
 import { IForestStand } from '../features/forest/types'
 import { useDispatch } from 'react-redux'
-import { setStands } from '../features/forest/forestSlice'
+import { setStands, setLoading } from '../features/forest/forestSlice'
 
 interface IParsedData {
   data: IForestStand
@@ -15,9 +15,14 @@ export const Upload: FC = () => {
   const dispatch = useDispatch()
 
   const handleOnDrop = (data: any) => {
+    dispatch(setLoading(true))
     const stands: IForestStand[] = data.filter((o: IParsedData) => !o.errors.length).map((o: IParsedData) => o.data)
 
     dispatch(setStands(stands))
+
+    setTimeout(() => {
+      dispatch(setLoading(false))
+    }, 2300)
   }
 
   const readerConfig = {

@@ -14,6 +14,7 @@ import { selectStands } from './features/forest/forestSlice'
 import { Histogram } from './pages/Histogram'
 import { Scatterplot } from './pages/Scatterplot'
 import { SpeciesFilter } from './components/SpeciesFilter'
+import { Pie } from './pages/Pie'
 
 const RouterContainer = styled.div`
   padding: 1rem;
@@ -29,6 +30,7 @@ const App: FC = () => {
         <RouterContainer>
           <Switch>
             <Route path="/" component={Upload} exact/>
+            <Route path="/pie" render={() => (!!stands.length ? <Pie/> : <Redirect to="/"/>)}/>
             <>
               <SpeciesFilter/>
               <Route path="/map" render={() => (!!stands.length ? <Map/> : <Redirect to="/"/>)}/>

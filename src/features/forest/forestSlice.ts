@@ -4,11 +4,13 @@ import { IForestStand } from './types'
 import { RootState } from '../../app/store'
 
 interface ForestState {
+  loading: boolean,
   stands: IForestStand[],
   selectedSpecies: string,
 }
 
 const initialState: ForestState = {
+  loading: false,
   stands: [],
   selectedSpecies: '',
 }
@@ -17,11 +19,11 @@ export const forestSlice = createSlice({
   name: 'forest',
   initialState,
   reducers: {
+    setLoading: (state, action: PayloadAction<boolean>) => {
+      state.loading = action.payload
+    },
     setStands: (state, action: PayloadAction<IForestStand[]>) => {
       state.stands = action.payload
-    },
-    addStand: (state, action: PayloadAction<IForestStand>) => {
-      state.stands = [...state.stands, action.payload]
     },
     setSelectedSpecies: (state, action: PayloadAction<string>) => {
       state.selectedSpecies = action.payload
@@ -29,7 +31,13 @@ export const forestSlice = createSlice({
   },
 })
 
-export const { setStands, addStand, setSelectedSpecies } = forestSlice.actions
+export const {
+  setLoading,
+  setStands,
+  setSelectedSpecies
+} = forestSlice.actions
+
+export const selectLoading = (state: RootState) => state.forest.loading
 
 export const selectStands = (state: RootState) => state.forest.stands
 
